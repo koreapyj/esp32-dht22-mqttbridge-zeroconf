@@ -1,0 +1,17 @@
+menu "Configuration"
+
+    config ESP_MAXIMUM_RETRY
+        int "Maximum retry"
+        default 30
+        help
+            Set the Maximum retry to avoid station reconnecting to the AP unlimited when the AP is really inexistent.
+
+    config MQTT_PREFIX
+        string "MQTT topic prefix"
+        default "/homeassistant/"
+
+    config MQTT_SENSOR_NAME
+        string "MQTT sensor name"
+        default "dht22-1"
+
+endmenu
