@@ -22,7 +22,9 @@ static void task_smartconfig(void * parm);
 static void event_handler(void* arg, esp_event_base_t event_base, int32_t event_id, void* event_data)
 {
     if (event_base == WIFI_EVENT && event_id == WIFI_EVENT_STA_START) {
-        esp_wifi_connect();
+        if(esp_wifi_connect()) {
+            xTaskCreate(task_smartconfig, "task_smartconfig", 4096, NULL, 3, NULL);
+        }
     } else if (event_base == WIFI_EVENT && event_id == WIFI_EVENT_STA_DISCONNECTED) {
         xEventGroupClearBits(s_wifi_event_group, CONNECTED_BIT);
         if (s_retry_num < CONFIG_ESP_MAXIMUM_RETRY) {
